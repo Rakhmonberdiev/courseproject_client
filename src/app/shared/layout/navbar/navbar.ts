@@ -2,10 +2,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { SvgIconService } from '../../../common/services/svgIcon.service';
 import { ThemeService } from '../../../common/services/theme.service';
+import { LangSwitch } from './lang-switch/lang-switch';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-navbar',
-  imports: [MatIcon],
+  imports: [MatIcon, LangSwitch, TranslateModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })

@@ -1,0 +1,25 @@
+<div class="dropdown dropdown-end">
+  <div tabindex="0" role="button" class="btn btn-ghost p-2">
+    <span class="font-medium uppercase">{{ current() }}</span>
+  </div>
+  <ul
+    tabindex="0"
+    class="menu dropdown-content bg-base-100 rounded-md z-[100] min-w-44 p-2 shadow-lg"
+  >
+    @for(l of langs; track $index) {
+    <li>
+      <button
+        class="justify-between"
+        [class.bg-base-200]="current() === l.code"
+        [class.font-semibold]="current() === l.code"
+        (click)="use(l.code)"
+      >
+        <span>{{ l.label }}</span>
+        @if (current() === l.code) {
+        <span class="badge badge-sm">✓</span>
+        }
+      </button>
+    </li>
+    }
+  </ul>
+</div>
