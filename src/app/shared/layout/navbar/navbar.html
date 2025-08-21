@@ -8,11 +8,7 @@
       <li><a routerLink="/register">Register</a></li>
     </ul>
     <button class="btn btn-ghost p-2" (click)="toggleTheme()">
-      @switch (currentTheme) { @case ('light') {
-      <mat-icon svgIcon="sun" class="h-6 w-6"></mat-icon>
-      }@case ('dark') {
-      <mat-icon svgIcon="moon" class="h-6 w-6"></mat-icon>
-      } }
+      <mat-icon [svgIcon]="theme.isDark() ? 'sun' : 'moon'"></mat-icon>
     </button>
   </div>
 </div>

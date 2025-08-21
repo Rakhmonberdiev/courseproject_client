@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
-import { SvgIconService } from '../../../services/svgIcon.service';
+import { SvgIconService } from '../../../common/services/svgIcon.service';
+import { ThemeService } from '../../../common/services/theme.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,21 +10,15 @@ import { SvgIconService } from '../../../services/svgIcon.service';
   styleUrl: './navbar.css',
 })
 export class Navbar implements OnInit {
-  currentTheme: 'light' | 'dark' = 'light';
   private iconService = inject(SvgIconService);
-  private navIcons = ['sun', 'moon'];
+  theme = inject(ThemeService);
   ngOnInit(): void {
-    this.iconService.register(this.navIcons);
-    this.initTheme();
-  }
-  private initTheme() {
-    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
-    this.currentTheme = savedTheme || 'light';
-    document.documentElement.setAttribute('data-theme', this.currentTheme);
+    this.iconService.register(['sun', 'moon']);
   }
   toggleTheme() {
-    this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', this.currentTheme);
-    localStorage.setItem('theme', this.currentTheme);
+    this.theme.toggle();
+  }
+  get currentTheme(): 'light' | 'dark' {
+    return this.theme.theme();
   }
 }
