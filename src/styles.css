@@ -1,2 +1,22 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+.input-base {
+  @apply border-2 rounded-lg border-base-300 bg-base-100 duration-200 
+         focus:border-primary focus:outline-none;
+}
+.input-error {
+  @apply border-2 rounded-lg border-error bg-base-100 duration-200 
+         focus:border-error focus:outline-none;
+}
+@theme {
+  --animate-fade-in: fade-in 200ms ease-out forwards;
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}

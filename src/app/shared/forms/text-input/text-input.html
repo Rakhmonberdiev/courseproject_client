@@ -1,0 +1,16 @@
+<input
+  class="input input-base w-full"
+  [class.input-error]="control.touched && control.invalid"
+  [class]="inputClass()"
+  [type]="type()"
+  [placeholder]="placeholder()"
+  [disabled]="disabled"
+  [value]="value"
+  (input)="onInput($event)"
+  (blur)="onBlur()"
+/>
+@if (control.touched && control.hasError('required')) {
+<div class="label animate-fade-in duration-100">
+  <span class="label-text-alt text-error">Please enter a {{ label() }}</span>
+</div>
+}
