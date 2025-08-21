@@ -11,6 +11,7 @@ import { ThemeService } from './common/services/theme.service';
 import { LangService } from './common/services/lang.service';
 import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { CurrentUserService } from './common/services/auth/current-user.service';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZonelessChangeDetection(),
@@ -19,6 +20,7 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => {
       inject(ThemeService).initTheme();
       inject(LangService).init();
+      inject(CurrentUserService).initUser();
       return;
     }),
     provideTranslateService({
