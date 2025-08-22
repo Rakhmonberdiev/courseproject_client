@@ -1,0 +1,26 @@
+<div class="dropdown dropdown-end">
+  <div tabindex="0" role="button" class="btn btn-ghost p-0">
+    <div class="avatar">
+      <div class="w-12 rounded-xl">
+        <img
+          draggable="false"
+          src="https://img.daisyui.com/images/profile/demo/yellingwoman@192.webp"
+        />
+      </div>
+    </div>
+  </div>
+  <ul
+    tabindex="0"
+    class="menu dropdown-content bg-base-100 rounded-md z-[100] min-w-44 p-2 shadow-lg"
+  >
+    <li>
+      <button class="justify-between" (click)="blurActive()">
+        <span>Hello {{ currenUserService.currentUser$()?.userName }}</span>
+      </button>
+      <button class="justify-between" (click)="logout()">
+        <span>Logout </span>
+        <mat-icon svgIcon="logout" />
+      </button>
+    </li>
+  </ul>
+</div>

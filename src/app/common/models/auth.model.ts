@@ -9,6 +9,6 @@ export interface LoginRequest {
   isPersistent: boolean;
 }
 export interface AuthResponse {
-  username: string;
+  userName: string;
   roles: string[];
 }

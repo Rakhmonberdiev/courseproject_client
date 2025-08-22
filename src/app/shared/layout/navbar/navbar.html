@@ -1,17 +1,29 @@
 <div class="navbar bg-base shadow-md">
-  <div class="flex-1">
+  <div class="navbar-start">
     <a class="btn btn-ghost text-xl">{{ "courseProject" | translate }}</a>
   </div>
-  <div class="flex-none items-center gap-3">
-    <ul class="menu menu-horizontal p-auto">
+  <div class="navbar-center">
+    <ul class="menu menu-horizontal px-1">
+      @if(!currentUserSvc.isAuthenticated()){
       <li>
         <a routerLink="/register">{{ "register" | translate }}</a>
       </li>
-      <li></li>
+      <li>
+        <a routerLink="/login">{{ "login" | translate }}</a>
+      </li>
+      }
     </ul>
-    <app-lang-switch />
-    <button class="btn btn-ghost p-2" (click)="toggleTheme()">
-      <mat-icon [svgIcon]="theme.isDark() ? 'sun' : 'moon'"></mat-icon>
-    </button>
+  </div>
+  <div class="navbar-end">
+    <ul class="menu menu-horizontal gap-1">
+      @if(currentUserSvc.isAuthenticated()){
+      <app-profile-dropdown />
+      }
+
+      <app-lang-switch />
+      <button class="btn btn-ghost p-2" (click)="toggleTheme()">
+        <mat-icon [svgIcon]="theme.isDark() ? 'sun' : 'moon'"></mat-icon>
+      </button>
+    </ul>
   </div>
 </div>
