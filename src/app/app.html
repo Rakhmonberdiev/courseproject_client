@@ -1,22 +1,2 @@
 <app-navbar />
-<form [formGroup]="registerForm">
-  <h2>Login</h2>
-  <app-text-input
-    [inputClass]="'input '"
-    [placeholder]="'email'"
-    [label]="'email'"
-    [type]="'text'"
-    formControlName="email"
-  ></app-text-input>
-  @if(registerForm.get('email')?.touched &&
-  registerForm.get('email')?.hasError('email')) {
-
-  <div class="animate-fade-in duration-100">
-    <span class="label-text-alt text-error"
-      >Please enter a valid email address.</span
-    >
-  </div>
-  }
-</form>
-
 <router-outlet />

@@ -1,5 +1,28 @@
 {
   "login": "Login",
   "register": "Register",
-  "courseProject": "Course Project"
+  "courseProject": "Course Project",
+  "auth": {
+    "register": {
+      "title": "Registration",
+      "username": "Username",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Sign up",
+      "usernameHint": "Latin letters A–Z only, no spaces or digits."
+    }
+  },
+  "validation": {
+    "required": "This field is required.",
+    "email": "Please enter a valid email address.",
+    "latinOnly": "Only Latin letters (A–Z) are allowed.",
+    "minlength": "Minimum length is {{requiredLength}}. Now: {{actualLength}}.",
+    "maxlength": "Maximum length is {{requiredLength}} characters.",
+    "passwordMismatch": "Passwords do not match."
+  },
+  "common": {
+    "loading": "Processing…",
+    "registerErrorDefault": "Registration failed"
+  }
 }

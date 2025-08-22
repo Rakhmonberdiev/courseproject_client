@@ -1,5 +1,28 @@
 {
   "login": "Войти",
   "register": "Регистрация",
-  "courseProject": "Курсовой проект"
+  "courseProject": "Курсовой проект",
+  "auth": {
+    "register": {
+      "title": "Регистрация",
+      "username": "Имя пользователя",
+      "email": "Email",
+      "password": "Пароль",
+      "confirmPassword": "Подтвердите пароль",
+      "submit": "Зарегистрироваться",
+      "usernameHint": "Только латинские буквы A–Z, без пробелов и цифр."
+    }
+  },
+  "validation": {
+    "required": "Поле обязательно для заполнения.",
+    "email": "Введите корректный адрес электронной почты.",
+    "latinOnly": "Допустимы только латинские буквы (A–Z).",
+    "minlength": "Минимальная длина — {{requiredLength}}. Сейчас: {{actualLength}}.",
+    "maxlength": "Максимальная длина — {{requiredLength}} символов.",
+    "passwordMismatch": "Пароли не совпадают."
+  },
+  "common": {
+    "loading": "Обработка…",
+    "registerErrorDefault": "Ошибка регистрации"
+  }
 }

@@ -14,7 +14,6 @@ import {
 export class TextInput implements ControlValueAccessor {
   label = input<string>('');
   type = input<string>('text');
-  placeholder = input<string>('');
   inputClass = input<string>('');
 
   constructor(@Self() public ngControl: NgControl) {

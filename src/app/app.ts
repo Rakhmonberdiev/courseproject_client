@@ -11,7 +11,7 @@ import {
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar, TextInput, ReactiveFormsModule],
+  imports: [RouterOutlet, Navbar, ReactiveFormsModule],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
