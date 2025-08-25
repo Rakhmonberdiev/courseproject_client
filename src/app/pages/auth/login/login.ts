@@ -11,6 +11,7 @@ import { LoginRequest } from '../../../common/models/auth.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { TextInput } from '../../../shared/forms/text-input/text-input';
 import { ErrorLocalizerService } from '../../../common/services/errors/error-localizer.service';
+import { CurrentUserService } from '../../../common/services/auth/current-user.service';
 
 @Component({
   selector: 'app-login',
@@ -22,11 +23,16 @@ export class Login {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
-  loginForm: FormGroup;
+  loginForm?: FormGroup;
   loading = signal(false);
   errorMessages = signal<string[] | null>(null);
+  private currentUserService = inject(CurrentUserService);
   private errLoc = inject(ErrorLocalizerService);
   constructor() {
+    if (this.currentUserService.isAuthenticated()) {
+      this.router.navigateByUrl('/');
+      return;
+    }
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(1)]],
@@ -34,15 +40,15 @@ export class Login {
     });
   }
   get f() {
-    return this.loginForm.controls;
+    return this.loginForm?.controls;
   }
   register() {
-    if (this.loginForm.invalid) return;
+    if (this.loginForm?.invalid) return;
 
     this.loading.set(true);
     this.errorMessages.set(null);
 
-    const loginReq: LoginRequest = this.loginForm.getRawValue();
+    const loginReq: LoginRequest = this.loginForm?.getRawValue();
     this.authService.login(loginReq).subscribe({
       next: () => {
         this.loading.set(false);

@@ -15,6 +15,7 @@ import {
 import { RegisterRequest } from '../../../common/models/auth.model';
 import { TextInput } from '../../../shared/forms/text-input/text-input';
 import { TranslateModule } from '@ngx-translate/core';
+import { CurrentUserService } from '../../../common/services/auth/current-user.service';
 
 @Component({
   selector: 'app-register',
@@ -26,10 +27,15 @@ export class Register {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
-  registerForm: FormGroup;
+  registerForm?: FormGroup;
   loading = signal(false);
   errorMessages = signal<string[] | null>(null);
+  private currentUserService = inject(CurrentUserService);
   constructor() {
+    if (this.currentUserService.isAuthenticated()) {
+      this.router.navigateByUrl('/');
+      return;
+    }
     this.registerForm = this.fb.group(
       {
         userName: [
@@ -49,15 +55,15 @@ export class Register {
     );
   }
   get f() {
-    return this.registerForm.controls;
+    return this.registerForm?.controls;
   }
   register() {
-    if (this.registerForm.invalid) return;
+    if (this.registerForm?.invalid) return;
 
     this.loading.set(true);
     this.errorMessages.set(null);
 
-    const registerRequest: RegisterRequest = this.registerForm.getRawValue();
+    const registerRequest: RegisterRequest = this.registerForm?.getRawValue();
     this.authService.register(registerRequest).subscribe({
       next: () => {
         this.loading.set(false);

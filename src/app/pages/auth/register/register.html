@@ -4,7 +4,7 @@
   <h2 class="text-2xl font-semibold mb-4">
     {{ "auth.register.title" | translate }}
   </h2>
-
+  @if(registerForm){
   <form [formGroup]="registerForm" (ngSubmit)="register()">
     <div class="mt-3 mb-3">
       <app-text-input
@@ -102,4 +102,5 @@
       } }
     </button>
   </form>
+  }
 </div>

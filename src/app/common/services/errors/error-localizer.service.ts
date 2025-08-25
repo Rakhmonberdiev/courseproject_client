@@ -11,31 +11,31 @@ export class ErrorLocalizerService {
 
     switch (status) {
       case 0:
-        return ['common.errors.common.network'];
+        return ['common.errors.network'];
       case 400:
-        return ['common.errors.common.badRequest'];
+        return ['common.errors.badRequest'];
       case 401:
-        return ['common.errors.common.unauthorized'];
+        return ['common.errors.unauthorized'];
       case 403:
-        return ['common.errors.common.forbidden'];
+        return ['common.errors.forbidden'];
       case 404:
-        return ['common.errors.common.notFound'];
+        return ['common.errors.notFound'];
       case 409:
-        return ['common.errors.common.conflict'];
+        return ['common.errors.conflict'];
       case 422:
-        return ['common.errors.common.unprocessable'];
+        return ['common.errors.unprocessable'];
       case 429:
-        return ['common.errors.common.tooManyRequests'];
+        return ['common.errors.tooManyRequests'];
       case 500:
-        return ['common.errors.common.server'];
+        return ['common.error.server'];
       case 502:
-        return ['common.errors.common.badGateway'];
+        return ['common.errors.badGateway'];
       case 503:
-        return ['common.errors.common.unavailable'];
+        return ['common.errors.unavailable'];
       case 504:
-        return ['common.errors.common.gatewayTimeout'];
+        return ['common.errors.gatewayTimeout'];
       default:
-        return ['common.errors.common.unknown'];
+        return ['common.errors.unknown'];
     }
   }
 }
