@@ -15,6 +15,8 @@
 </label>
 @if (control.touched && control.hasError('required')) {
 <div class="label animate-fade-in duration-100">
-  <span class="label-text-alt text-error">This field is required.</span>
+  <span class="label-text-alt text-error">{{
+    "validation.required" | translate
+  }}</span>
 </div>
 }

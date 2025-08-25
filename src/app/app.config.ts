@@ -6,7 +6,10 @@ import {
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { ThemeService } from './common/services/theme.service';
 import { LangService } from './common/services/lang.service';
 import { provideTranslateService } from '@ngx-translate/core';
@@ -16,7 +19,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZonelessChangeDetection(),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(withInterceptorsFromDi()),
     provideAppInitializer(() => {
       inject(ThemeService).initTheme();
       inject(LangService).init();

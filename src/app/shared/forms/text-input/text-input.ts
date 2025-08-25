@@ -5,9 +5,10 @@ import {
   NgControl,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-text-input',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TranslateModule],
   templateUrl: './text-input.html',
   styleUrl: './text-input.css',
 })

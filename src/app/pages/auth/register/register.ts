@@ -65,7 +65,7 @@ export class Register {
       },
       error: (err) => {
         this.loading.set(false);
-        // подхватим массив ошибок если есть, иначе одно сообщение
+
         const apiErrors: string[] =
           err?.error?.errors ??
           (typeof err?.error === 'string'

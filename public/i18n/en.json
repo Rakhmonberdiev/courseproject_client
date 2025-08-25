@@ -11,6 +11,11 @@
       "confirmPassword": "Confirm Password",
       "submit": "Sign up",
       "usernameHint": "Latin letters A–Z only, no spaces or digits."
+    },
+    "login": {
+      "title": "Sign In",
+      "submit": "Sign in",
+      "rememberMe": "Remember me"
     }
   },
   "validation": {
@@ -23,6 +28,24 @@
   },
   "common": {
     "loading": "Processing…",
-    "registerErrorDefault": "Registration failed"
+    "registerErrorDefault": "Registration failed",
+    "errors": {
+      "auth": {
+        "invalidCredentials": "Invalid email or password"
+      },
+      "badRequest": "Bad request",
+      "unauthorized": "Authorization required",
+      "forbidden": "Access is forbidden",
+      "notFound": "Resource not found",
+      "conflict": "Conflict",
+      "unprocessable": "Unprocessable entity",
+      "tooManyRequests": "Too many requests. Please try again later.",
+      "server": "Internal server error. Please try again later.",
+      "badGateway": "Bad gateway",
+      "unavailable": "Service unavailable",
+      "gatewayTimeout": "Gateway timeout",
+      "network": "Network error. Check your internet connection.",
+      "unknown": "An unknown error occurred"
+    }
   }
 }
