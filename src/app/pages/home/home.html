@@ -1,1 +1,102 @@
-<p>home works!</p>
+<section class="max-w-7xl mx-auto mt-6 px-4">
+  <div class="flex items-center gap-2 mb-4">
+    <input
+      type="text"
+      placeholder="Поиск инвентарей"
+      class="input input-base w-full max-w-md"
+      [ngModel]="searchRaw()"
+      (ngModelChange)="onSearchInput($event)"
+    />
+    @if (loading()) {
+    <span class="loading loading-spinner loading-sm text-primary"></span>
+    }
+  </div>
+
+  @if (error()) {
+  <div class="alert alert-error shadow-lg my-3">
+    <span>{{ error() }}</span>
+  </div>
+  }
+  <div class="overflow-x-auto shadow rounded-lg">
+    <table class="table table-zebra w-full">
+      <thead>
+        <tr class="bg-base-200">
+          <th class="w-20">Фото</th>
+          <th>Название</th>
+          <th>Владелец</th>
+          <th class="text-right">Предметов</th>
+          <th class="text-right">Лайков</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (inv of items(); track inv.id) {
+        <tr>
+          <td>
+            @if (inv.imageUrl) {
+            <div class="avatar">
+              <div class="mask mask-squircle w-24 h-20">
+                <img [src]="inv.imageUrl" alt="inventory image" />
+              </div>
+            </div>
+            } @else {
+            <div
+              class="w-16 h-12 bg-base-200 flex items-center justify-center text-xs text-gray-400 rounded"
+            >
+              no img
+            </div>
+            }
+          </td>
+          <td class="font-medium">{{ inv.title }}</td>
+          <td>{{ inv.ownerName }}</td>
+          <td class="text-right">{{ inv.itemsCount }}</td>
+          <td class="text-right">{{ inv.likesCount }}</td>
+        </tr>
+        } @if (!loading() && items().length === 0) {
+        <tr>
+          <td colspan="5" class="text-center text-gray-400 py-6">
+            Ничего не найдено
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  @if(totalPages()>1){
+  <div class="flex justify-between items-center mt-4">
+    <div class="text-sm text-gray-500">
+      Всего: {{ totalCount() }} @if (totalCount() > 0) { • Стр. {{ page() }} /
+      {{ totalPages() }}
+      }
+    </div>
+
+    <div class="join">
+      <button
+        class="join-item btn btn-sm"
+        [disabled]="page() === 1"
+        (click)="prevPage()"
+      >
+        «
+      </button>
+
+      @for (p of [page()-2, page()-1, page(), page()+1, page()+2]; track p) {
+      @if (p >= 1 && p <= totalPages()) {
+      <button
+        class="join-item btn btn-sm"
+        [class.btn-active]="p === page()"
+        (click)="setPage(p)"
+      >
+        {{ p }}
+      </button>
+      } }
+
+      <button
+        class="join-item btn btn-sm"
+        [disabled]="page() === totalPages()"
+        (click)="nextPage()"
+      >
+        »
+      </button>
+    </div>
+  </div>
+  }
+</section>
