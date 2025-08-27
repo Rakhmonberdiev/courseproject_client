@@ -25,6 +25,7 @@
       <tbody>
         @for (inv of items(); track inv.id) {
         <tr
+          [routerLink]="['/inventories', inv.id]"
           class="hover:bg-base-300 transition-all duration-100 cursor-pointer"
         >
           <td>

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { PagedResult } from '../../models/paged-result';
 import { InventoryDto } from '../../models/inventory.dto';
 import { environment } from '../../../../environments/environment';
+import { InvDetailsDto } from '../../models/inv-details.dto';
 
 @Injectable({ providedIn: 'root' })
 export class InventoryService {
@@ -25,6 +26,11 @@ export class InventoryService {
 
     return this.http.get<PagedResult<InventoryDto>>(this.baseUrl, {
       params,
+      withCredentials: true,
+    });
+  }
+  getById(id: string): Observable<InvDetailsDto> {
+    return this.http.get<InvDetailsDto>(`${this.baseUrl}/${id}`, {
       withCredentials: true,
     });
   }

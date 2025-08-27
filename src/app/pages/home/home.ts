@@ -15,9 +15,10 @@ import {
 } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-home',
-  imports: [FormsModule, TranslateModule],
+  imports: [FormsModule, TranslateModule, RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
