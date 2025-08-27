@@ -1,7 +1,21 @@
 {
-  "login": "Login",
-  "register": "Register",
   "courseProject": "Course Project",
+  "pages": {
+    "home": "Home",
+    "login": "Login",
+    "register": "Register"
+  },
+  "home": {
+    "searchPlaceholder": "Search inventories",
+    "table": {
+      "photo": "Photo",
+      "name": "Name",
+      "owner": "Owner",
+      "itemsCount": "Items",
+      "likesCount": "Likes"
+    },
+    "totalCount": "Total Count"
+  },
   "auth": {
     "register": {
       "title": "Registration",

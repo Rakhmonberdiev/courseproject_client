@@ -14,16 +14,17 @@ import {
   tap,
 } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-home',
-  imports: [FormsModule],
+  imports: [FormsModule, TranslateModule],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home {
   private service = inject(InventoryService);
   page = signal(1);
-  pageSize = signal(12);
+  pageSize = signal(10);
 
   searchRaw = signal('');
   search = signal('');

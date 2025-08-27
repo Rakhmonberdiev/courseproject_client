@@ -1,7 +1,21 @@
 {
-  "login": "Войти",
-  "register": "Регистрация",
   "courseProject": "Курсовой проект",
+  "pages": {
+    "home": "Главная",
+    "login": "Войти",
+    "register": "Регистрация"
+  },
+  "home": {
+    "searchPlaceholder": "Поиск инвентарей",
+    "table": {
+      "photo": "Фото",
+      "name": "Название",
+      "owner": "Владелец",
+      "itemsCount": "Количество предметов",
+      "likesCount": "Количество лайков"
+    },
+    "totalCount": "Общее количество"
+  },
   "auth": {
     "register": {
       "title": "Регистрация",

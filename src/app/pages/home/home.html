@@ -2,7 +2,7 @@
   <div class="flex items-center gap-2 mb-4">
     <input
       type="text"
-      placeholder="Поиск инвентарей"
+      placeholder="{{ 'home.searchPlaceholder' | translate }}"
       class="input input-base w-full max-w-md"
       [ngModel]="searchRaw()"
       (ngModelChange)="onSearchInput($event)"
@@ -11,26 +11,22 @@
     <span class="loading loading-spinner loading-sm text-primary"></span>
     }
   </div>
-
-  @if (error()) {
-  <div class="alert alert-error shadow-lg my-3">
-    <span>{{ error() }}</span>
-  </div>
-  }
   <div class="overflow-x-auto shadow rounded-lg">
-    <table class="table table-zebra w-full">
+    <table class="table w-full">
       <thead>
         <tr class="bg-base-200">
-          <th class="w-20">Фото</th>
-          <th>Название</th>
-          <th>Владелец</th>
-          <th class="text-right">Предметов</th>
-          <th class="text-right">Лайков</th>
+          <th class="w-20">{{ "home.table.photo" | translate }}</th>
+          <th>{{ "home.table.name" | translate }}</th>
+          <th>{{ "home.table.owner" | translate }}</th>
+          <th class="text-right">{{ "home.table.itemsCount" | translate }}</th>
+          <th class="text-right">{{ "home.table.likesCount" | translate }}</th>
         </tr>
       </thead>
       <tbody>
         @for (inv of items(); track inv.id) {
-        <tr>
+        <tr
+          class="hover:bg-base-300 transition-all duration-100 cursor-pointer"
+        >
           <td>
             @if (inv.imageUrl) {
             <div class="avatar">
@@ -40,7 +36,7 @@
             </div>
             } @else {
             <div
-              class="w-16 h-12 bg-base-200 flex items-center justify-center text-xs text-gray-400 rounded"
+              class="w-24 h-20 bg-base-200 flex items-center justify-center text-xs text-gray-400 rounded"
             >
               no img
             </div>
@@ -64,9 +60,7 @@
   @if(totalPages()>1){
   <div class="flex justify-between items-center mt-4">
     <div class="text-sm text-gray-500">
-      Всего: {{ totalCount() }} @if (totalCount() > 0) { • Стр. {{ page() }} /
-      {{ totalPages() }}
-      }
+      {{ "home.totalCount" | translate }}: {{ totalCount() }}
     </div>
 
     <div class="join">
