@@ -1,0 +1,122 @@
+<div class="card bg-base-100 shadow-sm">
+  <div class="card-body">
+    <div class="flex flex-wrap items-center gap-3">
+      <div class="join">
+        <button
+          class="btn btn-sm join-item"
+          [class.btn-active]="sort() === 'CreatedDesc'"
+          (click)="setSort('CreatedDesc')"
+        >
+          Новые
+        </button>
+        <button
+          class="btn btn-sm join-item"
+          [class.btn-active]="sort() === 'CreatedAsc'"
+          (click)="setSort('CreatedAsc')"
+        >
+          Старые
+        </button>
+        <button
+          class="btn btn-sm join-item"
+          [class.btn-active]="sort() === 'Popular'"
+          (click)="setSort('Popular')"
+        >
+          Популярные
+        </button>
+      </div>
+
+      <div class="ml-auto flex items-center gap-2">
+        <span class="text-sm text-base-content/70">На странице:</span>
+        <select
+          class="select select-bordered select-sm w-28"
+          [ngModel]="pageSize()"
+          (ngModelChange)="setPageSize(+$event)"
+        >
+          <option [ngValue]="5">5</option>
+          <option [ngValue]="10">10</option>
+          <option [ngValue]="20">20</option>
+          <option [ngValue]="50">50</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- loading -->
+    @if(loading()){
+    <div class="mt-4 flex items-center gap-3">
+      <span class="loading loading-spinner"></span>
+      <span class="text-base-content/70">Загрузка…</span>
+    </div>
+    } @if(!loading() && error()){
+    <div class="alert alert-error mt-4">
+      <span>{{ error() }}</span>
+    </div>
+    } @if(!loading() && !error()){
+    <div class="overflow-x-auto mt-2">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="w-[160px]">Custom ID</th>
+            <th>Поля (ShowInTable)</th>
+            <th class="w-[160px]">Автор</th>
+            <th class="w-[140px]">Создан</th>
+            <th class="w-[100px] text-right">Лайки</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (it of items(); track $index) {
+          <tr>
+            <td class="font-mono font-medium">{{ it.customId }}</td>
+            <td>
+              <div class="flex flex-wrap gap-2">
+                @for (f of it.fields; track $index) {
+                <div class="badge badge-ghost gap-1">
+                  <span class="opacity-70">{{ f.fieldTitle }}:</span>
+                  <span class="font-medium">{{ fieldValue(f) }}</span>
+                </div>
+                }
+              </div>
+            </td>
+            <td class="text-sm">{{ it.createdByName }}</td>
+            <td class="text-sm">{{ it.createdAt | date : "short" }}</td>
+            <td class="text-right">
+              <span class="badge">{{ it.likesCount }}</span>
+            </td>
+          </tr>
+          } @if(items().length===0){
+          <tr>
+            <td colspan="5" class="text-center text-base-content/60">
+              Пока нет предметов
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    } @if(!loading() && totalCount() > 0){
+    <div class="mt-4 flex items-center justify-between">
+      <div class="text-sm text-base-content/70">
+        Всего: <span class="font-medium">{{ totalCount() }}</span>
+      </div>
+      <div class="join">
+        <button
+          class="btn btn-sm join-item"
+          [disabled]="!hasPrev()"
+          (click)="prev()"
+        >
+          «
+        </button>
+        <button class="btn btn-sm join-item no-animation pointer-events-none">
+          {{ page() }} / {{ totalPages() }}
+        </button>
+        <button
+          class="btn btn-sm join-item"
+          [disabled]="!hasNext()"
+          (click)="next()"
+        >
+          »
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+</div>

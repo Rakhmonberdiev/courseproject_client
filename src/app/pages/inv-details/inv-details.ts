@@ -4,10 +4,11 @@ import { InvDetailsDto } from '../../common/models/inv-details.dto';
 import { DatePipe, NgClass } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map, startWith } from 'rxjs';
+import { InvItemsList } from '../../shared/inv-items-list/inv-items-list';
 
 @Component({
   selector: 'app-inv-details',
-  imports: [DatePipe, NgClass, RouterLink],
+  imports: [DatePipe, NgClass, RouterLink, InvItemsList],
   templateUrl: './inv-details.html',
   styleUrl: './inv-details.css',
 })

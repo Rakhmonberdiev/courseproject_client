@@ -5,6 +5,9 @@ import { PagedResult } from '../../models/paged-result';
 import { InventoryDto } from '../../models/inventory.dto';
 import { environment } from '../../../../environments/environment';
 import { InvDetailsDto } from '../../models/inv-details.dto';
+import { InventoryItemDto } from '../../models/inventory-item.dto';
+
+export type InvItemsSort = 'CreatedDesc' | 'CreatedAsc' | 'Popular';
 
 @Injectable({ providedIn: 'root' })
 export class InventoryService {
@@ -33,5 +36,20 @@ export class InventoryService {
     return this.http.get<InvDetailsDto>(`${this.baseUrl}/${id}`, {
       withCredentials: true,
     });
+  }
+
+  getItems(
+    invId: string,
+    opts: { page?: number; pageSize?: number; sort?: InvItemsSort } = {}
+  ) {
+    let params = new HttpParams();
+    if (opts.page) params = params.set('page', String(opts.page));
+    if (opts.pageSize) params = params.set('pageSize', String(opts.pageSize));
+    if (opts.sort) params = params.set('sort', opts.sort);
+
+    return this.http.get<PagedResult<InventoryItemDto>>(
+      `${this.baseUrl}/${invId}/items`,
+      { params, withCredentials: true }
+    );
   }
 }
