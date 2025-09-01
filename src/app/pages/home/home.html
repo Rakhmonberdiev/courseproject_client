@@ -51,7 +51,7 @@
         } @if (!loading() && items().length === 0) {
         <tr>
           <td colspan="5" class="text-center text-gray-400 py-6">
-            Ничего не найдено
+            {{ "home.not_found" | translate }}
           </td>
         </tr>
         }

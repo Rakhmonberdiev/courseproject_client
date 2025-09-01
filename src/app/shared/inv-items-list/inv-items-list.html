@@ -1,3 +1,28 @@
+@if(loading()){
+<div class="card bg-base-100 shadow-sm">
+  <div class="card-body">
+    <div class="grid md:grid-cols-1">
+      <div class="space-y-3">
+        <div class="flex gap-1 md:gap-2">
+          <div class="skeleton h-8 w-1/5 md:w-1/12"></div>
+          <div class="skeleton h-8 w-1/5 md:w-1/12"></div>
+          <div class="skeleton h-8 w-1/5 md:w-1/12"></div>
+        </div>
+
+        <div class="skeleton h-20 w-full"></div>
+        <div class="skeleton h-20 w-full"></div>
+        <div class="skeleton h-20 w-full"></div>
+        <div class="skeleton h-20 w-full"></div>
+        <div class="skeleton h-20 w-full"></div>
+        <div class="skeleton h-20 w-full"></div>
+        <div class="skeleton h-20 w-full"></div>
+        <div class="skeleton h-20 w-full"></div>
+        <div class="skeleton h-20 w-full"></div>
+      </div>
+    </div>
+  </div>
+</div>
+}@else {
 <div class="card bg-base-100 shadow-sm">
   <div class="card-body">
     <div class="flex flex-wrap items-center gap-3">
@@ -40,13 +65,7 @@
       </div>
     </div>
 
-    <!-- loading -->
-    @if(loading()){
-    <div class="mt-4 flex items-center gap-3">
-      <span class="loading loading-spinner"></span>
-      <span class="text-base-content/70">Загрузка…</span>
-    </div>
-    } @if(!loading() && error()){
+    @if(!loading() && error()){
     <div class="alert alert-error mt-4">
       <span>{{ error() }}</span>
     </div>
@@ -56,7 +75,7 @@
         <thead>
           <tr>
             <th class="w-[160px]">Custom ID</th>
-            <th>Поля (ShowInTable)</th>
+            <th>Поля</th>
             <th class="w-[160px]">Автор</th>
             <th class="w-[140px]">Создан</th>
             <th class="w-[100px] text-right">Лайки</th>
@@ -67,14 +86,11 @@
           <tr>
             <td class="font-mono font-medium">{{ it.customId }}</td>
             <td>
-              <div class="flex flex-wrap gap-2">
-                @for (f of it.fields; track $index) {
-                <div class="badge badge-ghost gap-1">
-                  <span class="opacity-70">{{ f.fieldTitle }}:</span>
-                  <span class="font-medium">{{ fieldValue(f) }}</span>
-                </div>
-                }
-              </div>
+              @for (f of it.fields; track $index) {
+              <p class="text-sm">
+                {{ fieldValue(f) }}
+              </p>
+              }
             </td>
             <td class="text-sm">{{ it.createdByName }}</td>
             <td class="text-sm">{{ it.createdAt | date : "short" }}</td>
@@ -120,3 +136,4 @@
     }
   </div>
 </div>
+}

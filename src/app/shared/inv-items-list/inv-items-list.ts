@@ -18,7 +18,7 @@ export class InvItemsList {
   page = signal(1);
   pageSize = signal(10);
   sort = signal<InvItemsSort>('CreatedDesc');
-  loading = signal(false);
+  loading = signal(true);
   error = signal<string | null>(null);
   items = signal<InventoryItemDto[]>([]);
   totalCount = signal(0);

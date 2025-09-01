@@ -14,7 +14,13 @@
       "itemsCount": "Items",
       "likesCount": "Likes"
     },
-    "totalCount": "Total Count"
+    "totalCount": "Total Count",
+    "not_found": "Nothing found"
+  },
+  "not-found": {
+    "title": "Page not found",
+    "desc": "Sorry, we couldn’t find the page you’re looking for.",
+    "btn": "Home"
   },
   "auth": {
     "register": {
