@@ -1,5 +1,5 @@
 <section class="max-w-7xl mx-auto mt-6 px-4">
-  <div class="flex items-center gap-2 mb-4">
+  <div class="grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-3">
     <input
       type="text"
       placeholder="{{ 'home.searchPlaceholder' | translate }}"
@@ -7,10 +7,26 @@
       [ngModel]="searchRaw()"
       (ngModelChange)="onSearchInput($event)"
     />
-    @if (loading()) {
-    <span class="loading loading-spinner loading-sm text-primary"></span>
+    @if(currentUserService.currentUser$()){
+    <label class="label">
+      <input
+        type="checkbox"
+        [checked]="myOnly()"
+        (change)="onToggleMyOnly($event)"
+        class="toggle"
+      />
+      {{ "home.switch_isMy" | translate }}
+    </label>
+
     }
   </div>
+
+  @if (loading()) {
+  <div class="flex justify-center">
+    <span class="loading loading-dots loading-xl"></span>
+  </div>
+
+  }@else {
   <div class="overflow-x-auto shadow rounded-lg">
     <table class="table w-full">
       <thead>
@@ -31,13 +47,13 @@
           <td>
             @if (inv.imageUrl) {
             <div class="avatar">
-              <div class="mask mask-squircle w-24 h-20">
+              <div class="mask mask-squircle w-18 h-14 md:w-24 md:h-20">
                 <img [src]="inv.imageUrl" alt="inventory image" />
               </div>
             </div>
             } @else {
             <div
-              class="w-24 h-20 bg-base-200 flex items-center justify-center text-xs text-gray-400 rounded"
+              class="mask mask-squircle w-18 h-14 md:w-24 md:h-20 bg-base-200 flex items-center justify-center text-xs text-gray-400 rounded"
             >
               no img
             </div>
@@ -93,5 +109,5 @@
       </button>
     </div>
   </div>
-  }
+  } }
 </section>

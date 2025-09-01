@@ -17,11 +17,13 @@ export class InventoryService {
   getAll(opts: {
     page: number;
     pageSize: number;
+    myOnly: boolean;
     search?: string | null;
   }): Observable<PagedResult<InventoryDto>> {
     let params = new HttpParams()
       .set('page', String(opts.page))
-      .set('pageSize', String(opts.pageSize));
+      .set('pageSize', String(opts.pageSize))
+      .set('myOnly', String(opts.myOnly));
 
     if (opts.search && opts.search.trim().length >= 2) {
       params = params.set('search', opts.search.trim());

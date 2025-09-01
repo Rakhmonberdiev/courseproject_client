@@ -15,7 +15,8 @@
       "likesCount": "Likes"
     },
     "totalCount": "Total Count",
-    "not_found": "Nothing found"
+    "not_found": "Nothing found",
+    "switch_isMy": "Only mine"
   },
   "not-found": {
     "title": "Page not found",

@@ -16,6 +16,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
+import { CurrentUserService } from '../../common/services/auth/current-user.service';
 @Component({
   selector: 'app-home',
   imports: [FormsModule, TranslateModule, RouterLink],
@@ -29,7 +30,7 @@ export class Home {
 
   searchRaw = signal('');
   search = signal('');
-
+  myOnly = signal(false);
   data = signal<PagedResult<InventoryDto> | null>(null);
   items = computed(() => this.data()?.items ?? []);
   totalCount = computed(() => this.data()?.totalCount ?? 0);
@@ -42,7 +43,7 @@ export class Home {
     const size = this.pageSize();
     return Math.max(1, Math.ceil(total / size));
   });
-
+  currentUserService = inject(CurrentUserService);
   constructor() {
     toObservable(this.searchRaw)
       .pipe(
@@ -60,6 +61,7 @@ export class Home {
       page: this.page(),
       pageSize: this.pageSize(),
       search: this.search(),
+      myOnly: this.myOnly(),
     }));
     toObservable(queryParams)
       .pipe(
@@ -88,7 +90,10 @@ export class Home {
       )
       .subscribe();
   }
-
+  onToggleMyOnly(event: Event) {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    this.myOnly.set(isChecked);
+  }
   onSearchInput(v: string) {
     this.searchRaw.set(v);
   }
