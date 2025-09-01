@@ -36,6 +36,7 @@
           <th>{{ "home.table.owner" | translate }}</th>
           <th class="text-right">{{ "home.table.itemsCount" | translate }}</th>
           <th class="text-right">{{ "home.table.likesCount" | translate }}</th>
+          <th class="text-right"></th>
         </tr>
       </thead>
       <tbody>
@@ -63,6 +64,15 @@
           <td>{{ inv.ownerName }}</td>
           <td class="text-right">{{ inv.itemsCount }}</td>
           <td class="text-right">{{ inv.likesCount }}</td>
+          <td class="text-right">
+            <button
+              class="btn btn-gost"
+              (click)="$event.stopPropagation()"
+              [routerLink]="['/discussion', inv.id]"
+            >
+              <mat-icon [svgIcon]="'chat'"></mat-icon>
+            </button>
+          </td>
         </tr>
         } @if (!loading() && items().length === 0) {
         <tr>

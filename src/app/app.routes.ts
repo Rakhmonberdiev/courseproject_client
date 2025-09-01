@@ -16,6 +16,13 @@ export const routes: Routes = [
     },
     runGuardsAndResolvers: 'always',
   },
+  {
+    path: 'discussion/:id',
+    loadComponent: () =>
+      import('./pages/discussions-list/discussions-list').then(
+        (x) => x.DiscussionsList
+      ),
+  },
   ...authRoutes,
   {
     path: '**',

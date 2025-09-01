@@ -9,7 +9,6 @@ import {
   filter,
   finalize,
   map,
-  startWith,
   switchMap,
   tap,
 } from 'rxjs';
@@ -17,14 +16,17 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
 import { CurrentUserService } from '../../common/services/auth/current-user.service';
+import { SvgIconService } from '../../common/services/svgIcon.service';
+import { MatIcon } from '@angular/material/icon';
 @Component({
   selector: 'app-home',
-  imports: [FormsModule, TranslateModule, RouterLink],
+  imports: [FormsModule, TranslateModule, RouterLink, MatIcon],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home {
   private service = inject(InventoryService);
+  private iconService = inject(SvgIconService);
   page = signal(1);
   pageSize = signal(10);
 
@@ -45,6 +47,7 @@ export class Home {
   });
   currentUserService = inject(CurrentUserService);
   constructor() {
+    this.iconService.register('chat');
     toObservable(this.searchRaw)
       .pipe(
         map((t) => t.trim()),

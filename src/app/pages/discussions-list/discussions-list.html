@@ -1,0 +1,82 @@
+<div class="max-w-7xl mx-auto mt-6 px-4 h-[calc(100vh-144px)]">
+  <div class="h-full w-full flex flex-col">
+    <div class="p-3 border-b border-base-300">
+      <div class="text-lg font-semibold">Комментарии</div>
+      <div class="text-xs opacity-70">
+        Инвентарь: {{ invId() }} • Всего: {{ total() }}
+      </div>
+    </div>
+
+    <div
+      class="flex-1 overflow-y-auto px-3 py-4 space-y-2 h-full scroll-container"
+      #scrollContainer
+    >
+      @if (loading() && page() > 1) {
+      <div class="flex justify-center py-2">
+        <span class="loading loading-spinner loading-sm"></span>
+      </div>
+      } @if (loading() && posts().length === 0) {
+      <div class="flex justify-center py-6">
+        <span class="loading loading-spinner"></span>
+      </div>
+      } @for (m of posts(); track $index) { @if
+      (currentUser.currentUser$()?.userName == m.authorName) {
+      <div class="chat chat-end">
+        <div class="chat-header">
+          {{ m.authorName }}
+          <time class="text-xs opacity-50 ml-1">
+            {{ m.createdAt | date : "medium" }}
+          </time>
+        </div>
+        <div class="chat-bubble whitespace-pre-line">
+          {{ m.markdown }}
+        </div>
+      </div>
+      } @else {
+      <div class="chat chat-start">
+        <div class="chat-header">
+          {{ m.authorName }}
+          <time class="text-xs opacity-50 ml-1">
+            {{ m.createdAt | date : "medium" }}
+          </time>
+        </div>
+        <div class="chat-bubble whitespace-pre-line">
+          {{ m.markdown }}
+        </div>
+      </div>
+      } }
+    </div>
+
+    <div class="border-t border-base-300 p-3 bg-base-100">
+      @if (!currentUser.currentUser$()) {
+      <div class="alert alert-info">
+        <span>Чтобы отправить комментарий, войдите в систему.</span>
+      </div>
+      } @else {
+      <div class="flex flex-col gap-2 items-end">
+        <textarea
+          class="textarea input-base w-full"
+          rows="2"
+          placeholder="Напишите комментарий… (Enter — отправить, Shift+Enter — перенос строки)"
+          [ngModel]="msg()"
+          (ngModelChange)="msg.set($event)"
+          (keydown)="onKeyDown($event)"
+          [disabled]="sending()"
+        ></textarea>
+
+        <button
+          class="btn btn-primary"
+          (click)="send()"
+          [disabled]="sending() || msg().trim().length === 0"
+          aria-label="Send"
+        >
+          @if (sending()) {
+          <span class="loading loading-spinner loading-xs"></span>
+          } @else { Send }
+        </button>
+      </div>
+
+      }
+    </div>
+  </div>
+</div>

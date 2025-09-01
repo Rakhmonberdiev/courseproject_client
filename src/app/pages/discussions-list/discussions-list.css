@@ -1,0 +1,11 @@
+:host {
+  display: block;
+}
+
+.scroll-container {
+  scroll-behavior: smooth;
+}
+
+.chat {
+  min-height: 60px;
+}
