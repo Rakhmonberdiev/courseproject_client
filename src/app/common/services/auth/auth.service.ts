@@ -12,7 +12,7 @@ import { CurrentUserService } from './current-user.service';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private http = inject(HttpClient);
-  private baseUrl = environment.apiUrl + 'auth/';
+  private baseUrl = environment.apiUrl + 'api/auth/';
   private store = inject(CurrentUserService);
 
   login(req: LoginRequest): Observable<AuthResponse> {

@@ -7,7 +7,7 @@ import { environment } from '../../../../environments/environment';
 @Injectable({ providedIn: 'root' })
 export class DiscussionService {
   private http = inject(HttpClient);
-  private readonly baseUrl = environment.apiUrl + 'discussion';
+  private readonly baseUrl = environment.apiUrl + 'api/discussion';
 
   getPosts(inventoryId: string, page: number, pageSize: number) {
     return this.http.get<PagedResult<DiscussionPostDto>>(
@@ -16,7 +16,7 @@ export class DiscussionService {
     );
   }
   addPost(inventoryId: string, markdown: string) {
-    return this.http.post<DiscussionPostDto>(
+    return this.http.post(
       `${this.baseUrl}/${inventoryId}`,
       { markdown },
       { withCredentials: true }

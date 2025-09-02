@@ -7,7 +7,7 @@ import { catchError, finalize, Observable, of, tap } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class CurrentUserService {
   private readonly http = inject(HttpClient);
-  private readonly baseUrl = environment.apiUrl + 'auth/';
+  private readonly baseUrl = environment.apiUrl + 'api/auth/';
   private currentUser = signal<AuthResponse | null>(null);
   readonly currentUser$ = this.currentUser.asReadonly();
   readonly ready = signal(false);

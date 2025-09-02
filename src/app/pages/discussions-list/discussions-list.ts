@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   DestroyRef,
+  effect,
   ElementRef,
   inject,
   OnDestroy,
@@ -17,6 +18,7 @@ import { DatePipe } from '@angular/common';
 import { CurrentUserService } from '../../common/services/auth/current-user.service';
 import { FormsModule } from '@angular/forms';
 import { debounceTime, fromEvent } from 'rxjs';
+import { DiscussionHubService } from '../../common/services/hubs/discussion-hub.service';
 
 @Component({
   selector: 'app-discussions-list',
@@ -30,6 +32,7 @@ export class DiscussionsList implements AfterViewInit, OnDestroy {
   private destroyRef = inject(DestroyRef);
   currentUser = inject(CurrentUserService);
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
+  private hubSvc = inject(DiscussionHubService);
   msg = signal<string>('');
   sending = signal<boolean>(false);
   invId = signal<string>('');
@@ -39,8 +42,7 @@ export class DiscussionsList implements AfterViewInit, OnDestroy {
   posts = signal<DiscussionPostDto[]>([]);
   total = signal<number>(0);
   loading = signal<boolean>(false);
-  isScrolling = false;
-  hasMore = signal<boolean>(true);
+  end = signal<boolean>(false);
   private scrollSubscription: any;
   constructor() {
     this.route.paramMap
@@ -48,8 +50,18 @@ export class DiscussionsList implements AfterViewInit, OnDestroy {
       .subscribe((pm) => {
         const id = pm.get('id') ?? pm.get('invId') ?? '';
         this.invId.set(id);
+        this.hubSvc.connect(id);
         this.resetAndLoad();
       });
+    effect(() => {
+      const post = this.hubSvc.newPost();
+      if (post) {
+        this.posts.update((old) => [...old, post]);
+        this.total.update((t) => t + 1);
+        this.scrollToBottom();
+        this.hubSvc.newPost.set(null);
+      }
+    });
   }
   ngAfterViewInit() {
     // Подписываемся на события скролла с debounce для оптимизации
@@ -65,10 +77,11 @@ export class DiscussionsList implements AfterViewInit, OnDestroy {
     if (this.scrollSubscription) {
       this.scrollSubscription.unsubscribe();
     }
+    this.hubSvc.disconnect();
   }
   private onScroll() {
     const element = this.scrollContainer.nativeElement;
-    if (element.scrollTop < 144 && this.hasMore() && !this.loading()) {
+    if (element.scrollTop < 144 && !this.loading() && !this.end()) {
       this.loadNextPage();
     }
   }
@@ -82,7 +95,7 @@ export class DiscussionsList implements AfterViewInit, OnDestroy {
   }
 
   private async loadPage(pageNum: number): Promise<void> {
-    if (this.loading() || !this.hasMore()) return Promise.resolve();
+    if (this.loading()) return Promise.resolve();
 
     this.loading.set(true);
 
@@ -92,9 +105,9 @@ export class DiscussionsList implements AfterViewInit, OnDestroy {
           this.total.set(res.totalCount);
 
           if (res.items.length === 0) {
-            this.hasMore.set(false);
             this.loading.set(false);
             resolve();
+            this.end.set(true);
             return;
           }
           const asc = [...res.items].reverse();
@@ -112,10 +125,6 @@ export class DiscussionsList implements AfterViewInit, OnDestroy {
               this.loading.set(false);
               resolve();
             });
-          }
-
-          if (res.items.length < this.pageSize) {
-            this.hasMore.set(false);
           }
 
           if (pageNum === 1) {
@@ -157,9 +166,7 @@ export class DiscussionsList implements AfterViewInit, OnDestroy {
 
     this.sending.set(true);
     this.api.addPost(this.invId(), text).subscribe({
-      next: (created) => {
-        this.posts.update((old) => [...old, created]);
-        this.total.update((t) => t + 1);
+      next: () => {
         this.msg.set('');
         this.sending.set(false);
         this.scrollToBottom();

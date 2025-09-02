@@ -12,7 +12,7 @@ export type InvItemsSort = 'CreatedDesc' | 'CreatedAsc' | 'Popular';
 @Injectable({ providedIn: 'root' })
 export class InventoryService {
   private http = inject(HttpClient);
-  private readonly baseUrl = environment.apiUrl + 'inventories';
+  private readonly baseUrl = environment.apiUrl + 'api/inventories';
 
   getAll(opts: {
     page: number;
