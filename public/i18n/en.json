@@ -18,6 +18,13 @@
     "not_found": "Nothing found",
     "switch_isMy": "Only mine"
   },
+  "discussion-list": {
+    "title": "Comments",
+    "placeHolder": "Write a comment… (Enter — send, Shift+Enter — line break)",
+    "button": "Send",
+    "subtitle": "Total",
+    "alert": "To post a comment, please log in."
+  },
   "not-found": {
     "title": "Page not found",
     "desc": "Sorry, we couldn’t find the page you’re looking for.",

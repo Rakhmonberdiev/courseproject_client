@@ -19,10 +19,11 @@ import { CurrentUserService } from '../../common/services/auth/current-user.serv
 import { FormsModule } from '@angular/forms';
 import { debounceTime, fromEvent } from 'rxjs';
 import { DiscussionHubService } from '../../common/services/hubs/discussion-hub.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-discussions-list',
-  imports: [DatePipe, FormsModule],
+  imports: [DatePipe, FormsModule, TranslateModule],
   templateUrl: './discussions-list.html',
   styleUrl: './discussions-list.css',
 })

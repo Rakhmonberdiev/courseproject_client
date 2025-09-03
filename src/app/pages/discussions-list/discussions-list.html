@@ -1,9 +1,11 @@
 <div class="max-w-7xl mx-auto mt-6 px-4 h-[calc(100vh-144px)]">
   <div class="h-full w-full flex flex-col">
     <div class="p-3 border-b border-base-300">
-      <div class="text-lg font-semibold">Комментарии</div>
+      <div class="text-lg font-semibold">
+        {{ "discussion-list.title" | translate }}
+      </div>
       <div class="text-xs opacity-70">
-        Инвентарь: {{ invId() }} • Всего: {{ total() }}
+        • {{ "discussion-list.subtitle" | translate }}: {{ total() }}
       </div>
     </div>
 
@@ -50,14 +52,14 @@
     <div class="border-t border-base-300 p-3 bg-base-100">
       @if (!currentUser.currentUser$()) {
       <div class="alert alert-info">
-        <span>Чтобы отправить комментарий, войдите в систему.</span>
+        <span>{{ "discussion-list.alert" | translate }}</span>
       </div>
       } @else {
       <div class="flex flex-col gap-2 items-end">
         <textarea
           class="textarea input-base w-full"
           rows="2"
-          placeholder="Напишите комментарий… (Enter — отправить, Shift+Enter — перенос строки)"
+          placeholder="{{ 'discussion-list.placeHolder' | translate }}"
           [ngModel]="msg()"
           (ngModelChange)="msg.set($event)"
           (keydown)="onKeyDown($event)"
@@ -72,7 +74,7 @@
         >
           @if (sending()) {
           <span class="loading loading-spinner loading-xs"></span>
-          } @else { Send }
+          } @else { {{ "discussion-list.button" | translate }} }
         </button>
       </div>
 
