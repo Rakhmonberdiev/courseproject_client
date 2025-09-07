@@ -4,6 +4,7 @@ export interface InventoryItemDto {
   createdByName: string;
   createdAt: string;
   likesCount: number;
+  userLike: boolean;
   fields: ItemFieldValueDto[];
 }
 

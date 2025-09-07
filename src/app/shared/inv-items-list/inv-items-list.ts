@@ -1,4 +1,11 @@
-import { Component, computed, effect, input, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import {
   InventoryService,
   InvItemsSort,
@@ -6,10 +13,14 @@ import {
 import { InventoryItemDto } from '../../common/models/inventory-item.dto';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { SvgIconService } from '../../common/services/svgIcon.service';
+import { CurrentUserService } from '../../common/services/auth/current-user.service';
+import { InvItemService } from '../../common/services/fetchDataServices/inv-item.service';
 
 @Component({
   selector: 'app-inv-items-list',
-  imports: [FormsModule, DatePipe],
+  imports: [FormsModule, DatePipe, MatIcon],
   templateUrl: './inv-items-list.html',
   styleUrl: './inv-items-list.css',
 })
@@ -22,13 +33,19 @@ export class InvItemsList {
   error = signal<string | null>(null);
   items = signal<InventoryItemDto[]>([]);
   totalCount = signal(0);
-
+  private svgIconService = inject(SvgIconService);
+  private invItemService = inject(InvItemService);
+  currentUser = inject(CurrentUserService);
   totalPages = computed(() =>
     Math.max(1, Math.ceil(this.totalCount() / this.pageSize()))
   );
   hasPrev = computed(() => this.page() > 1);
   hasNext = computed(() => this.page() < this.totalPages());
   constructor(private api: InventoryService) {
+    if (this.currentUser.currentUser$()) {
+      this.svgIconService.register(['heart', 'heart-fill']);
+    }
+
     effect(() => {
       const id = this.invId();
       const p = this.page();
@@ -36,6 +53,24 @@ export class InvItemsList {
       const s = this.sort();
       if (!id) return;
       this.fetch(id, p, sz, s);
+    });
+  }
+
+  onToggleLike(itemId: string) {
+    this.invItemService.toggleLike(itemId).subscribe((res) => {
+      this.items.update((items) =>
+        items.map((it) =>
+          it.id === res.itemId
+            ? {
+                ...it,
+                userLike: !res.isDeleted,
+                likesCount: res.isDeleted
+                  ? it.likesCount - 1
+                  : it.likesCount + 1,
+              }
+            : it
+        )
+      );
     });
   }
   private fetch(

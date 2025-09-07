@@ -78,7 +78,7 @@
             <th>Поля</th>
             <th class="w-[160px]">Автор</th>
             <th class="w-[140px]">Создан</th>
-            <th class="w-[100px] text-right">Лайки</th>
+            <th class="w-[100px] text-center">Лайки</th>
           </tr>
         </thead>
         <tbody>
@@ -94,8 +94,26 @@
             </td>
             <td class="text-sm">{{ it.createdByName }}</td>
             <td class="text-sm">{{ it.createdAt | date : "short" }}</td>
-            <td class="text-right">
-              <span class="badge">{{ it.likesCount }}</span>
+            <td>
+              <div class="flex flex-col justify-center text-center">
+                @if (currentUser.currentUser$()) {
+                <label class="swap swap-flip">
+                  <input
+                    type="checkbox"
+                    [checked]="it.userLike"
+                    (change)="onToggleLike(it.id)"
+                  />
+
+                  <div class="swap-on text-red-600">
+                    <mat-icon [svgIcon]="'heart-fill'" />
+                  </div>
+                  <div class="swap-off">
+                    <mat-icon [svgIcon]="'heart'" />
+                  </div>
+                </label>
+                }
+                <p>{{ it.likesCount }}</p>
+              </div>
             </td>
           </tr>
           } @if(items().length===0){
